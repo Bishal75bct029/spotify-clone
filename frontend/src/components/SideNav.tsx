@@ -37,7 +37,7 @@ const SideNav: React.FC = () => {
           <p style={{ fontSize: '12px',letterSpacing:1 }}>It's easy, we will help you</p>
           <button style={{borderRadius:20,padding:'10px 20px',border:'none',fontWeight:'700'}}>Create Playlist</button>
         </div>
-        <div style={{display:'flex',flexWrap:'wrap'}}>
+        <div style={{display:'flex',flexWrap:'wrap',margin:'40px 0 0px 10px'}}>
 
         <p style={{color:'#A7A7A7',fontSize:12,margin:' 0px 25px 20px 0'}}> Legal</p>
         <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 0 0'}}> Safety&PrivacyCenter</p>
