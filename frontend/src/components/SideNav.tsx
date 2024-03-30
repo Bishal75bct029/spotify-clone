@@ -1,56 +1,93 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdHomeFilled } from "react-icons/md";
 import { FaSearch } from 'react-icons/fa';
 import { MdOutlineLibraryBooks } from 'react-icons/md';
 import { FaPlus } from 'react-icons/fa';
 import { MdLanguage } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { clientId, clientSecret } from '../constants/constant';
+import { FETCH_TOKEN } from '../redux/actionTypes';
 
 const SideNav: React.FC = () => {
+  const [token, SetToken] = useState('');
+  const storedToken: string = localStorage.getItem('token') || '';
+  const dispatch: Dispatch = useDispatch();
+
+  if (token) {
+    SetToken(storedToken)
+  }
+  useEffect(() => {
+    try {
+      fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
+      })
+        .then(response => {
+
+          if (!response.ok)
+            throw new Error("Error");
+          return response.json()
+        }
+        )
+        .then(data => {
+          dispatch({ type: FETCH_TOKEN, payload: data.access_token })
+          // console.log('Access token ', data.access_token);
+        });
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }, [])
+
   return (
-    <nav style={{ width: 300, minHeight: '100vh' }}>
-      <div className='navbar' style={{ width: '100%', backgroundColor: '#121212', display: 'flex', flexDirection: 'column', gap: '5px', padding: '25px 20px', margin: '0 4px', borderRadius: '10px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: 40, gap: 4 }}>
+    <nav className='min-h-screen w-[340px] mt-2 fixed top-0 bottom-0 left-0'>
+      <div className='flex flex-col gap-[6px]  rounded-xl w-full bg-[#121212] mx-1 py-6 px-5'>
+        <div className='flex items-center gap-1 my-2'>
           <a href="#">
             <img src="../../spotify.png" alt="noimage" width={25} height={25} />
           </a>
-          <p style={{ color: 'white', fontSize: 16, fontWeight: 700 }}>Spotify</p>
+          <p className='flex text-white font-bold text-[16px] '>Spotify</p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', height: 40 }}>
-          <MdHomeFilled style={{ color: 'white', fontSize: 30 }} />
-          <p style={{ color: 'white', fontSize: 17, fontWeight: 700 }}>Home</p>
+        <div className='flex items-center gap-4 h-10 mb-3'>
+          <MdHomeFilled className='text-white text-[30px]' />
+          <p className='text-white font-bold text-[17px] mt-[2px]'>Home</p>
 
         </div>
-        <div style={{ display: 'flex', gap: 15, alignItems: 'center', fontWeight: 700, marginLeft: 5 }}>
-          <FaSearch style={{ color: '#A7A7A7', fontSize: 25 }} />
-          <p style={{ color: '#A7A7A7', fontSize: 17 }}>Search</p>
+        <div className='flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer hover:text-white'>
+          <FaSearch className='text-[#A7A7A7] text-[25px]' />
+          <p className='text-[#A7A7A7] text-[17px]'>Search</p>
         </div>
 
       </div>
-      <div style={{ height:400,margin: '10px 0 0 5px', width: '100%', padding: '10px 20px 30px 20px', backgroundColor: '#121212', borderRadius: '10px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 15,padding:'0 10px' }}>
-          <MdOutlineLibraryBooks style={{ color: '#A7A7A7', fontSize: 30 }} />
-          <p style={{ color: '#A7A7A7' }}>Your Library</p>
-          <FaPlus style={{ color: '#a7a7a7', fontSize: 20, marginLeft: 'auto', fontWeight: '300' }} />
+      <div className='h-[430px] mt-[10px] ml-[5px] w-full pt-[10px] px-5 pb-[30px] bg-[#121212] rounded-xl ' >
+        <div className='flex items-center gap-4 px-[10px] mt-3 mb-5'>
+          <MdOutlineLibraryBooks className='text-[#A7A7A7] text-[30px]' />
+          <p className='text-[#a7a7a7]' >Your Library</p>
+          <FaPlus className='text-[#a7a7a7] font-light ml-auto text-[20px]' />
         </div>
-        <div style={{ backgroundColor: '#242424', padding: '5px 30px 10px 20px', margin: '5px 0px 20px 0px', borderRadius: '10px', color: 'white',height:120 }}>
-          <p style={{ fontSize: '14px',letterSpacing:1, fontWeight: '700',padding:0 }}>Create your  First Playlist</p>
-          <p style={{ fontSize: '12px',letterSpacing:1 }}>It's easy, we will help you</p>
-          <button style={{borderRadius:20,padding:'10px 20px',border:'none',fontWeight:'700'}}>Create Playlist</button>
+        <div className=' bg-[#242424] pt-[5px] pr-[30px] pb-[10px] pl-5 mt-[5px] mb-5 rounded-xl h-[140px] text-white' >
+          <p className='text-[14px] font-bold tracking-wider my-[10px]' >Create your  First Playlist</p>
+          <p className='text-[12px] tracking-wider mb-1'>It's easy, we will help you</p>
+          <button className=' my-[10px] rounded-full bg-white text-black py-[6px] px-5 font-bold text-[14px]' >Create Playlist</button>
         </div>
-        <div style={{display:'flex',flexWrap:'wrap',margin:'40px 0 0px 10px'}}>
+        <div className='flex flex-wrap mt-9 ml-[10px]'>
 
-        <p style={{color:'#A7A7A7',fontSize:12,margin:' 0px 25px 20px 0'}}> Legal</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 0 0'}}> Safety&PrivacyCenter</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 0 0'}}> Cookies</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 0 0'}}> Accessibility</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 0 0'}}> AboutAds</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0 25px 20px 0px'}}> Cookies</p>
-        <p style={{color:'#A7A7A7',fontSize:12,margin:'0'}}> PrivacyPolicy</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > Legal</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > Safety&PrivacyCenter</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > Cookies</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > Accessibility</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > AboutAds</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 mb-[18px]' > Cookies</p>
+          <p className='text-[#a7a7a7] text-[12px] mr-6 '> PrivacyPolicy</p>
         </div>
-        <div style={{display:'flex',gap:20}}>
-        <button style={{backgroundColor:'transparent',color:'white',padding:'5px 8px',border:'1px solid #878787',fontSize:14,fontWeight:'700',display:'flex',alignItems:'center',gap:2,marginTop:40,borderRadius:15}}><MdLanguage/>English</button>
+        <div className='flex gap-5'>
+          <button style={{ backgroundColor: 'transparent', color: 'white', padding: '5px 8px', border: '1px solid #878787', fontSize: 14, fontWeight: '700', display: 'flex', alignItems: 'center', gap: 2, marginTop: 30, borderRadius: 15 }}><MdLanguage />English</button>
 
-        <button style={{backgroundColor:'transparent',color:'white',padding:'5px 18px',border:'1px solid #878787',fontSize:14,fontWeight:'700',display:'flex',alignItems:'center',gap:6,borderRadius:15,marginTop:40}}><MdLanguage/>नेपाली</button>
+          <button style={{ backgroundColor: 'transparent', color: 'white', padding: '5px 18px', border: '1px solid #878787', fontSize: 14, fontWeight: '700', display: 'flex', alignItems: 'center', gap: 6, borderRadius: 15, marginTop: 30 }}><MdLanguage />नेपाली</button>
         </div>
       </div>
     </nav>
