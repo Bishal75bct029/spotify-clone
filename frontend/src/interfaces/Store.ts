@@ -5,5 +5,6 @@
 // }
 export interface Store {
     token: string,
-    featuredPlaylist: any
+    featuredPlaylist: any,
+    searchResult:any
 }

@@ -6,7 +6,7 @@ const SearchBox: React.FC = () => {
     return (
         <div className='relative'>
             <FaSearch className='absolute top-[13px] left-2  text-[#a7a7a7] text-[20px] ' />
-            <input type="text" placeholder="What do you want to play for ?" className="bg-[#242424] w-[300px] font-normal pl-10 pr-5 py-3 rounded-full focus:outline-none focus:ring-1 border-1 text-[14px] " value={value} onChange={handleChange} />
+            <input type="text" placeholder="What do you want to play for ?" className="bg-[#242424] w-[300px] font-light pl-10 pr-5 py-3 rounded-full focus:outline-none focus:ring-1 border-1 text-[14px] placeholder:text-[16px]" value={value} onChange={handleChange} />
         </div>
     )
 }

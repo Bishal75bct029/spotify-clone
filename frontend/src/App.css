@@ -5,3 +5,24 @@ body{
     background-color: black;
     font-family: Roboto;
   }
+
+  .carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Safari */
+.carousel-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.relative-container:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
