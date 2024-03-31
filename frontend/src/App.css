@@ -20,6 +20,14 @@ body{
   display: none;
 }
 
+.react-loading-skeleton {
+  background-color: green;
+}
+
+/* Loading effect color */
+.react-loading-skeleton__loading {
+  background-color: green;
+}
 .relative-container:after {
   content: "";
   display: block;

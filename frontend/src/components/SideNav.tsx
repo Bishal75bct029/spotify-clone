@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { clientId, clientSecret } from '../constants/constant';
 import { FETCH_TOKEN } from '../redux/actionTypes';
+import { Link } from 'react-router-dom';
 
 const SideNav: React.FC = () => {
   const [token, SetToken] = useState('');
@@ -46,17 +47,19 @@ const SideNav: React.FC = () => {
   return (
     <nav className='min-h-screen w-[340px] mt-2 fixed top-0 bottom-0 left-0'>
       <div className='flex flex-col gap-[6px]  rounded-xl w-full bg-[#121212] mx-1 py-6 px-5'>
-        <div className='flex items-center gap-1 my-2'>
+        <div className='flex items-center gap-1 my-2 cursor-pointer'>
           <a href="#">
             <img src="../../spotify.png" alt="noimage" width={25} height={25} />
           </a>
           <p className='flex text-white font-bold text-[16px] '>Spotify</p>
         </div>
+          <Link to = "/">
         <div className='flex items-center gap-4 h-10 mb-3'>
-          <MdHomeFilled className='text-white text-[30px]' />
-          <p className='text-white font-bold text-[17px] mt-[2px]'>Home</p>
+            <MdHomeFilled className='text-white text-[30px]' />
+            <p className='text-white font-bold text-[17px] mt-[2px]'>Home</p>
 
         </div>
+          </Link>
         <div className='flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer hover:text-white'>
           <FaSearch className='text-[#A7A7A7] text-[25px]' />
           <p className='text-[#A7A7A7] text-[17px]'>Search</p>

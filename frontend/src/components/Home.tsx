@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '../interfaces/Store';
 // import { featuredPlaylistAction } from '../redux/actions/featuredPlaylist';
@@ -8,6 +8,8 @@ import Albums from './Albums';
 import { FETCH_BHAJAN_SONGS, FETCH_ENGLISH_SONGS, FETCH_FEATURED_PLAYLIST, FETCH_HINDI_SONGS, FETCH_NEW_RELEASE } from '../redux/actionTypes';
 import Carousel from 'react-multi-carousel';
 import { responsive } from '../constants/carousel';
+import { Link } from 'react-router-dom';
+import SkeletonUI from './Loading';
 
 const Home: React.FC = () => {
     const token = useSelector((store: Store) => store.token);
@@ -17,8 +19,9 @@ const Home: React.FC = () => {
     const hindiSongs = useSelector((store: Store) => store.featuredPlaylist.hindiSongs);
     const bhajanSongs = useSelector((store: Store) => store.featuredPlaylist.bhajanSongs);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
     interface featuredPlaylisting {
-        images: { url: string }[], name: '', description: ''
+        images: { url: string }[], name: '', description: '',id:''
     };
     useEffect(() => {
         const browseHome = async () => {
@@ -28,15 +31,23 @@ const Home: React.FC = () => {
                         'Authorization': `Bearer ${token}` // Replace with your actual access token
                     }
                 });
-
+                const first = await axios.get(`https://api.spotify.com/v1/playlists/37i9dQZF1DWTwzVdyRpXm1/tracks`, {
+                    headers: {
+                      'Authorization': `Bearer ${token}` 
+                    }
+                  });
+                  console.log(first,"I am the first")
                 const data = response.data.playlists.items;
-                const payload = data?.map(({ description, images, name }: featuredPlaylisting) => {
+                console.log(data,"are")
+                const payload = data?.map(({ description, images, name,id }: featuredPlaylisting) => {
                     return {
+                        id: id,
                         image: images[0]?.url,
                         title: name,
                         description: description
                     }
                 });
+
                 const newReleaseResponse = await axios.get('https://api.spotify.com/v1/browse/new-releases', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -70,12 +81,13 @@ const Home: React.FC = () => {
                     }
                 });
                 const newReleasesData = newReleaseResponse.data.albums.items.map((item: any) => ({
+                    id:item.id,
                     name: item.name,
                     artists: item.artists.map((artist: any) => artist.name).join(', '),
                     image: item.images[0].url,
                     releaseDate: item.release_date
                 }));
-                console.log(newReleaseResponse, 'are')
+                // console.log(payload, 'are')
 
                 const englishPlaylists = searchResponse.data.playlists.items;
                 const bhajanPlaylists = bhajanSearchResponse.data.playlists.items;
@@ -83,6 +95,7 @@ const Home: React.FC = () => {
                 console.log(englishPlaylists, 'okay')
                 const englishPlayMusic = englishPlaylists.map((playlist: any) => {
                     return {
+                        id:playlist.id,
                         title: playlist.name,
                         image: playlist.images[0].url,
                         description: ''
@@ -90,6 +103,7 @@ const Home: React.FC = () => {
                 });
                 const bhajanPlayMusic = bhajanPlaylists.map((playlist: any) => {
                     return {
+                        id:playlist.id,
                         title: playlist.name,
                         image: playlist.images[0].url,
                         description: ''
@@ -97,11 +111,13 @@ const Home: React.FC = () => {
                 });
                 const HindiPlaymusic = hindiPlaylists.map((playlist: any) => {
                     return {
+                        id:playlist.id,
                         title: playlist.name,
                         image: playlist.images[0].url,
                         description: ''
                     }
                 });
+                setIsLoading(false);
                 dispatch({ type: FETCH_FEATURED_PLAYLIST, payload: payload });
                 dispatch({ type: FETCH_NEW_RELEASE, payload: newReleasesData });
                 dispatch({type:FETCH_ENGLISH_SONGS,payload:englishPlayMusic});
@@ -120,6 +136,9 @@ const Home: React.FC = () => {
     console.log(englishSongs, 'shaktimaan')
     return (
         <div className='w-full'>
+            {
+                isLoading ?<SkeletonUI/>:
+                <>
             <p className='text-white font-bold text-[24px] mt-8'>Trending</p>
             <div className='flex flex-wrap justify-between mt-[-30px] gap-8 carousel-container relative'>
                 <Carousel
@@ -142,7 +161,11 @@ const Home: React.FC = () => {
                         Array.isArray(playlists) && playlists?.map((playlist) => {
                             // console.log(playlists, 'why man')
                             return (
+                                <div key={playlist.id}>
+                                    <Link to ={`/playlist/${playlist.id}`}>
                                 <Albums image={playlist.image} description={playlist.description} title={playlist.title} />
+                                    </Link>
+                                </div>
                             )
                         })
                     }
@@ -169,7 +192,11 @@ const Home: React.FC = () => {
                         Array.isArray(newReleases) && newReleases?.map((release: any) => {
 
                             return (
+                                <div key={release.id}>
+                                    <Link to={`/playlist/${release.id}`}>
                                 <Albums image={release.image} description={release.artist} title={release.name} />
+                                    </Link>
+                                </div>
                             )
                         })
                     }
@@ -195,7 +222,13 @@ const Home: React.FC = () => {
                         Array.isArray(englishSongs) && englishSongs?.map((release: any) => {
 
                             return (
+                                <div key={release.id}>
+                                    <Link to={`/playlist/${release.id}`}>
+
                                 <Albums image={release.image} description={release.description} title={release.title} />
+                                    </Link>
+                                </div>
+
                             )
                         })
                     }
@@ -221,7 +254,12 @@ const Home: React.FC = () => {
                         Array.isArray(hindiSongs) && hindiSongs?.map((release: any) => {
 
                             return (
+                                <div key={release.id}>
+                                    <Link to={`/playlist/${release.id}`}>
+
                                 <Albums image={release.image} description={release.description} title={release.title} />
+                                    </Link>
+                                    </div>
                             )
                         })
                     }
@@ -247,13 +285,21 @@ const Home: React.FC = () => {
                         Array.isArray(bhajanSongs) && bhajanSongs?.map((release: any) => {
 
                             return (
+                                <div key={release.id}>
+                                    <Link to={`/playlist/${release.id}`}>
+
                                 <Albums image={release.image} description={release.description} title={release.title} />
+                                    </Link>
+                                </div>
                             )
                         })
                     }
                 </Carousel>
             </div>
+            </>
+            }
         </div>
+
     )
 }
 
