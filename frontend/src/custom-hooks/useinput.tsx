@@ -10,7 +10,7 @@ const useInput = (initialValue: any): UserInput => {
   const [value, setValue] = useState(initialValue);
   const dispatch = useDispatch();
   const token = useSelector((store: Store) => store.token);
-  const searchValues = useSelector((store: Store) => store.searchResult);
+ // const searchValues = useSelector((store: Store) => store.searchResult);
   
   useEffect(() => {
     const fetchData = async () => {

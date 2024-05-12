@@ -1,5 +1,5 @@
 import Action from "../../interfaces/Action";
-import { OPEN_PLAYER, TRACK_DETAIL } from "../actionTypes";
+import { OPEN_PLAYER } from "../actionTypes";
 
 
 export const getPlayerState = (state = "",action:Action)=>{
