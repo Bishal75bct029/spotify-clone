@@ -15,7 +15,7 @@ const useInput = (initialValue: any): UserInput => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('hehe')
+        //'hehe')
         if(!value){
           return;
         }
@@ -60,9 +60,9 @@ const useInput = (initialValue: any): UserInput => {
           }
         });
         const payloadData = {artists,albums,playlists,tracks}
-        console.log(payloadData,'hatori')
+        //payloadData,'hatori')
         dispatch({type:SEARCH_RESULTS,payload:payloadData});
-        console.log(response.data,'perman'); 
+        //response.data,'perman'); 
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -81,7 +81,7 @@ const useInput = (initialValue: any): UserInput => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
   }
-  console.log(searchValues,'ninja');
+  //searchValues,'ninja');
   return { value, handleChange };
 
 };

@@ -11,7 +11,7 @@ const initialState = {
 export const getFeaturedPlaylistReducer = (state = initialState,action:Action)=>{
     switch(action.type){
         case FETCH_FEATURED_PLAYLIST:
-            console.log(action.payload,"kismat")
+            //action.payload,"kismat")
             return {...state,featuredPlaylists:action.payload};
         
         case FETCH_ENGLISH_SONGS:

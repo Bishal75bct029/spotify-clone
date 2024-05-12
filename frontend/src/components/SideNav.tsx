@@ -15,11 +15,11 @@ const SideNav: React.FC = () => {
   const storedToken: string = localStorage.getItem('token') || '';
   const dispatch: Dispatch = useDispatch();
 
-  if (token) {
-    SetToken(storedToken)
-  }
   useEffect(() => {
     try {
+      if (token) {
+        SetToken(storedToken)
+      }
       fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
@@ -36,11 +36,11 @@ const SideNav: React.FC = () => {
         )
         .then(data => {
           dispatch({ type: FETCH_TOKEN, payload: data.access_token })
-          // console.log('Access token ', data.access_token);
+          // //'Access token ', data.access_token);
         });
     }
     catch (e) {
-      console.log(e);
+      //e);
     }
   }, [])
 

@@ -9,7 +9,11 @@ const HomePage :React.FC= () => {
         <div>
           <SideNav />
         </div>
-        <div className=' min-h-screen w-full bg-[#121212] ml-[345px] mt-2 rounded-xl custom-scrollbar h-auto relative-container'>
+        <div className=' min-h-full w-full bg-[#121212] ml-[345px] mt-2 rounded-xl custom-scrollbar h-auto relative-container relative z-0'>
+          <div>
+
+         
+          </div>
           <Body />
         </div>
       </div>

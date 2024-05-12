@@ -1,6 +1,6 @@
 export const getDuration = (milliseconds:number)=>{
-    let minutes = Math.floor(milliseconds/(1000 *60));
-    let seconds = Math.floor((milliseconds/1000) %60);
+    let minutes = Math.floor(milliseconds/(60));
+    let seconds = Math.floor(milliseconds %60);
     let formattedMinutes = "";
     let formattedSeconds = "";
     if(minutes <10){

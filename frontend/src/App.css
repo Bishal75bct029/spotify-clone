@@ -34,3 +34,16 @@ body{
   height: 0;
   clear: both;
 }
+.rhap_bar-color{
+  color:green !important;
+  background-color:green !important;
+}
+.rhap_time-color{
+  color: green;
+  background-color: green!important;
+}
+.rhap_time{
+  color:#ccc !important;
+}
+
+

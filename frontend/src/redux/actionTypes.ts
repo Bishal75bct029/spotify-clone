@@ -5,3 +5,5 @@ export const FETCH_ENGLISH_SONGS:string = 'englishsongs'
 export const FETCH_BHAJAN_SONGS:string = 'bhanjan'
 export const FETCH_HINDI_SONGS:string = 'hindisongs';
 export const SEARCH_RESULTS:string = 'searchResults';
+export const OPEN_PLAYER:string = 'openPlayer';
+export const TRACK_DETAIL = 'trackDetail';

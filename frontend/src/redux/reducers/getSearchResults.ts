@@ -7,10 +7,10 @@ const initialState = {
     playlists:[]
 }
  export const getSearchResults =(state=initialState,action:Action)=>{
-    console.log("laudu",action.type)
+    ////"laudu",action.type)
     switch(action.type){
         case SEARCH_RESULTS:
-            console.log(action.payload,"char")
+            //action.payload,"char")
             return action.payload
         
         default:

@@ -6,5 +6,6 @@
 export interface Store {
     token: string,
     featuredPlaylist: any,
-    searchResult:any
+    searchResult:any,
+    playerState:boolean;
 }
