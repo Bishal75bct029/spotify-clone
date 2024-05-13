@@ -163,7 +163,7 @@ const Home: React.FC = () => {
                                     Array.isArray(playlists) && playlists?.map((playlist) => {
                                         // //playlists, 'why man')
                                         return (
-                                            <div key={playlist.id}>
+                                            <div key={playlist.id}className='hover:translate-y-[-8px] duration-300'>
                                                 <Link to={`/playlist/${playlist.id}`}>
                                                     <Albums image={playlist.image} title={playlist.title} />
                                                 </Link>
@@ -194,7 +194,7 @@ const Home: React.FC = () => {
                                     Array.isArray(newReleases) && newReleases?.map((release: any) => {
 
                                         return (
-                                            <div key={release.id} >
+                                            <div key={release.id} className='hover:translate-y-[-8px] duration-300'>
                                                 <Link to={`/playlist/${release.id}`}>
                                                     <Albums image={release.image} title={release.title} />
                                                 </Link>
@@ -224,7 +224,7 @@ const Home: React.FC = () => {
                                     Array.isArray(englishSongs) && englishSongs?.map((release: any) => {
 
                                         return (
-                                            <div key={release.id}>
+                                            <div key={release.id} className='hover:translate-y-[-8px] duration-300'>
                                                 <Link to={`/playlist/${release.id}`}>
 
                                                     <Albums image={release.image} title={release.title} />
@@ -256,7 +256,7 @@ const Home: React.FC = () => {
                                     Array.isArray(hindiSongs) && hindiSongs?.map((release: any) => {
 
                                         return (
-                                            <div key={release.id}>
+                                            <div key={release.id} className='hover:translate-y-[-8px] duration-300'>
                                                 <Link to={`/playlist/${release.id}`}>
 
                                                     <Albums image={release.image} title={release.title} />
@@ -287,7 +287,7 @@ const Home: React.FC = () => {
                                     Array.isArray(bhajanSongs) && bhajanSongs?.map((release: any) => {
 
                                         return (
-                                            <div key={release.id}>
+                                            <div key={release.id} className='hover:translate-y-[-8px] duration-300'>
                                                 <Link to={`/playlist/${release.id}`}>
                                                     <Albums image={release.image} title={release.title} />
                                                 </Link>

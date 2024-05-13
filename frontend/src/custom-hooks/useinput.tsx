@@ -19,44 +19,47 @@ const useInput = (initialValue: any): UserInput => {
         if(!value){
           return;
         }
-        const response = await axios.get('https://api.spotify.com/v1/search', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
+        const response = await axios.get('https://saavn.dev/api/search', {
+          
           
             params: {
-              q: value,
-              type: 'artist,album,playlist,track',
-              limit:'5'
+              query:value
+             
             }
           
         });
         const searchResult = response.data;
-        const albums = searchResult.albums.items.map((album:any)=>{
+        console.log(searchResult,"gandu")
+        const albums = searchResult.data.albums?.results?.map((album:any)=>{
           return {
-            title:album.name,
-            image:album.images[0].url
+            id:album.id,
+            title:album.description,
+            image:album.image[2].url
           }
         })
-        const artists = searchResult.artists.items.map((artist:any)=>{
+        const artists = searchResult.data.artists.results.map((artist:any)=>{
           return {
-            title:artist.name,
-            image:artist.images[0].url,
-            followers:artist.followers.total
+            id:artist.id,
+            title:artist.title,
+            image:artist.image[2].url,
           }
         })
-        const playlists = searchResult.playlists.items.map((playlist:any)=>{
+        const playlists = searchResult.data.playlists.results.map((playlist:any)=>{
           return {
-            title:playlist.name,
-            image:playlist.images[0].url,
+            id:playlist.id,
+            title:playlist.title,
+            image:playlist.image[2].url,
             description:playlist.description
           }
         })
-        const tracks = searchResult.tracks.items.map((track:any)=>{
+        const tracks = searchResult.data.songs.results.map((track:any)=>{
           return {
-            title:track.name,
-            image:track.album.images[0].url,
-            artists:track.artists
+            id:track.id,
+            title:track.title,
+            image:track.image[2].url,
+            artists: track.primaryArtists?.includes(',')?track.primaryArtists.split(',') : [track.primaryArtists],
+            description:track.description,
+            url:track.url
           }
         });
         const payloadData = {artists,albums,playlists,tracks}
