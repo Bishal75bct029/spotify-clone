@@ -1,48 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { MdHomeFilled } from "react-icons/md";
 import { FaSearch } from 'react-icons/fa';
 import { MdOutlineLibraryBooks } from 'react-icons/md';
 import { FaPlus } from 'react-icons/fa';
 import { MdLanguage } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
-import { clientId, clientSecret } from '../constants/constant';
-import { FETCH_TOKEN } from '../redux/actionTypes';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const SideNav: React.FC = () => {
-  const [token, SetToken] = useState('');
-  const storedToken: string = localStorage.getItem('token') || '';
-  const dispatch: Dispatch = useDispatch();
-
-  useEffect(() => {
-    try {
-      if (token) {
-        SetToken(storedToken)
-      }
-      fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
-      })
-        .then(response => {
-
-          if (!response.ok)
-            throw new Error("Error");
-          return response.json()
-        }
-        )
-        .then(data => {
-          dispatch({ type: FETCH_TOKEN, payload: data.access_token })
-          // //'Access token ', data.access_token);
-        });
-    }
-    catch (e) {
-      //e);
-    }
-  }, [])
+  const navigate = useNavigate();
+  const {id} = useParams();
+  const appendSearchId =()=>{
+    navigate('/search');
+  }
+  
 
   return (
     <nav className='min-h-screen w-[340px] mt-2 fixed top-0 bottom-0 left-0'>
@@ -54,15 +25,15 @@ const SideNav: React.FC = () => {
           <p className='flex text-white font-bold text-[16px] '>Spotify</p>
         </div>
           <Link to = "/">
-        <div className='flex items-center gap-4 h-10 mb-3'>
+        <div className='flex items-center gap-4 h-10 mb-3 hover:bg-[#1e1e1e] duration-300 rounded-md active:bg-[#2e2e2e]'>
             <MdHomeFilled className='text-white text-[30px]' />
-            <p className='text-white font-bold text-[17px] mt-[2px]'>Home</p>
+            <p className={`${!id ? 'text-white': 'text-[#a7a7a7]'} font-bold text-[17px] mt-[2px]`}>Home</p>
 
         </div>
           </Link>
-        <div className='flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer hover:text-white'>
+        <div className='flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer hover:text-whitehover:bg-[#1e1e1e] duration-300 rounded-md active:bg-[#2e2e2e]'onClick={appendSearchId}>
           <FaSearch className='text-[#A7A7A7] text-[25px]' />
-          <p className='text-[#A7A7A7] text-[17px]'>Search</p>
+          <p className={`${id=='search'?'text-white':'text-[#a7a7a7]'} text-[#A7A7A7] text-[17px]`}>Search</p>
         </div>
 
       </div>

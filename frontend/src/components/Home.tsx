@@ -8,12 +8,10 @@ import Albums from './Albums';
 import { FETCH_BHAJAN_SONGS, FETCH_ENGLISH_SONGS, FETCH_FEATURED_PLAYLIST, FETCH_HINDI_SONGS, FETCH_NEW_RELEASE } from '../redux/actionTypes';
 import Carousel from 'react-multi-carousel';
 import { responsive } from '../constants/carousel';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SkeletonUI from './Loading';
 
 const Home: React.FC = () => {
-    const token = useSelector((store: Store) => store.token);
-
     const playlists = useSelector((store: Store) => store.featuredPlaylist.featuredPlaylists);
     const newReleases = useSelector((store: Store) => store.featuredPlaylist.newReleases);
     const englishSongs = useSelector((store: Store) => store.featuredPlaylist.englishPlaylists);
@@ -21,6 +19,8 @@ const Home: React.FC = () => {
     const bhajanSongs = useSelector((store: Store) => store.featuredPlaylist.bhajanSongs);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
+    const {id} = useParams();
+    console.log(id)
     interface featuredPlaylisting {
         image: { url: string }[], name: '', id: ''
     };
@@ -29,6 +29,7 @@ const Home: React.FC = () => {
         const browseHome = async () => {
             try {
                 // //playlists);
+                console.log("hey man")
                 if (playlists?.length > 0) {
                     setIsLoading(false);
                     return;
@@ -89,7 +90,8 @@ const Home: React.FC = () => {
                     title: item.name,
                     image: item.image[2].url,
                 }));
-                //newReleasesData, "checking")
+                console.log(newReleasesData, "checking")
+              
 
                 const englishPlaylists = searchResponse.data.data.results;
                 const bhajanPlaylists = bhajanSearchResponse.data.data.results;
@@ -127,19 +129,19 @@ const Home: React.FC = () => {
 
 
             } catch (e) {
-                //e);
+                console.log(e,"hi")
             }
         }
-        if (token) {
+       
             browseHome();
-        }
-    }, [token]);
+    
+    }, []);
     //token, "token")
 
     return (
         <div className='w-full h-[1324px]'>
             {
-                isLoading ? <SkeletonUI /> :
+                isLoading ? <SkeletonUI /> : !id && (
                     <>
                         <p className='text-white font-bold text-[24px] mt-8'>Trending</p>
                         <div className='flex flex-wrap justify-between mt-[-30px] gap-8 carousel-container relative '>
@@ -297,7 +299,7 @@ const Home: React.FC = () => {
                                 }
                             </Carousel>
                         </div>
-                    </>
+                    </>)
             }
         </div>
 

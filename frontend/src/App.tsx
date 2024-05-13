@@ -14,7 +14,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage/>}/>
+          <Route path="/:id?" element={<HomePage/>}/>
           <Route path = "/playlist/:id" element = {<PlaylistPage/>}/>
         </Routes>
       </BrowserRouter>

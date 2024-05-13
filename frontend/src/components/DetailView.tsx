@@ -98,7 +98,7 @@ const DetailView: React.FC = () => {
             <div className='mt-8 ml-4 cursor-pointer' >
                 {playlistDetail[0].map((song: any) => {
                     return (
-                        <div key={song.id} className='flex mb-3 items-center hover:bg-[#1e1e1e]'onClick={()=>playMusic(song.playUrl)}>
+                        <div key={song.id} className='flex mb-3 items-center hover:bg-[#1e1e1e] duration-200 active:bg-[#2e2e2e]'onClick={()=>playMusic(song.playUrl)}>
                             <img src={`${song.image}`} alt="Not Found" className='h-20 w-20 rounded-sm' />
                             <div className='m-4'>
                             <p className='text-[#a7a7a7]  text-[14px]'>{
