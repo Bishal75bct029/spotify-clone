@@ -19,9 +19,12 @@ const SearchResult: React.FC = () => {
             console.log(music)
         dispatch({type:OPEN_PLAYER,payload:music.data.data[0].downloadUrl[2].url})
     }
-    console.log(searchData)
+    const toshow = searchData.artists.length || searchData.artists.length || searchData.tracks.length ||searchData.playlists.length
+    console.log(searchData.artists.length,'rakesh')
     return (
-        <div>
+        <div className='min-h-[calc(100vh-140px)]'>
+        {!!toshow &&
+        (<div>
             <p className='text-white text-[20px] font-bold my-3'>Top Results</p>
             <div className='flex'>
                 {
@@ -94,7 +97,10 @@ const SearchResult: React.FC = () => {
                 </div>
             </div>
 
+        </div>)
+                }
         </div>
+
     )
 }
 

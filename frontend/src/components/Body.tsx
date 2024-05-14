@@ -4,9 +4,11 @@ import SearchBox from "./SearchBox"
 import { Store } from "../interfaces/Store"
 import SearchResult from "./SearchResult"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 const Body: React.FC = () => {
     const searchResult = useSelector((store: Store) => store.searchResult);
+    const {id} = useParams();
     const [isData,SetIsData] = useState(searchResult.artists.length > 0 || searchResult.albums.length > 0 || searchResult.tracks > 0 || searchResult.playlists.length > 0);
     
     useEffect(()=>{
@@ -25,7 +27,7 @@ const Body: React.FC = () => {
             </div>
             <hr className="mt-8 border-1 border-gray-800 text-blue-500 shadow-xl relative z-[999]" />
             {
-                !isData ? <Home /> : <SearchResult />
+                !id && !isData ? <Home /> : <SearchResult />
             }
         </div>
     )
