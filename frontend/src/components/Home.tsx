@@ -141,7 +141,8 @@ const Home: React.FC = () => {
     return (
         <div className='w-full h-[1324px]'>
             {
-                isLoading ? <SkeletonUI /> : !id && (
+                id ?<></>:
+                isLoading ? <SkeletonUI /> : (
                     <>
                         <p className='text-white font-bold text-[24px] mt-8'>Trending</p>
                         <div className='flex flex-wrap justify-between mt-[-30px] gap-8 carousel-container relative '>

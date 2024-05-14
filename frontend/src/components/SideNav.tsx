@@ -8,13 +8,17 @@ import { MdLanguage } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const SideNav: React.FC = () => {
+ 
   const navigate = useNavigate();
   const {id} = useParams();
   const appendSearchId =()=>{
     navigate('/search');
   }
   
+  
+  
 
+  
   return (
     <nav className='min-h-screen w-[340px] mt-2 fixed top-0 bottom-0 left-0'>
       <div className='flex flex-col gap-[6px]  rounded-xl w-full bg-[#121212] mx-1 py-6 px-5'>
@@ -25,15 +29,15 @@ const SideNav: React.FC = () => {
           <p className='flex text-white font-bold text-[16px] '>Spotify</p>
         </div>
           <Link to = "/">
-        <div className='flex items-center gap-4 h-10 mb-3 hover:bg-[#1e1e1e] duration-300 rounded-md active:bg-[#2e2e2e]'>
-            <MdHomeFilled className='text-white text-[30px]' />
+        <div className='flex p-2 items-center gap-4 h-10 mb-1 hover:text-[white] duration-300 rounded-md active:bg-[#2e2e2e]'>
+            <MdHomeFilled className={`${!id ? 'text-white': 'text-[#a7a7a7]'} font-bold text-[30px]`} />
             <p className={`${!id ? 'text-white': 'text-[#a7a7a7]'} font-bold text-[17px] mt-[2px]`}>Home</p>
 
         </div>
           </Link>
-        <div className='flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer hover:text-whitehover:bg-[#1e1e1e] duration-300 rounded-md active:bg-[#2e2e2e]'onClick={appendSearchId}>
-          <FaSearch className='text-[#A7A7A7] text-[25px]' />
-          <p className={`${id=='search'?'text-white':'text-[#a7a7a7]'} text-[#A7A7A7] text-[17px]`}>Search</p>
+        <div className=' p-2 flex gap-4 items-center font-bold ml-1 mb-3 cursor-pointer  rounded-md hover:text-white active:text-[#a7a7a7]'onClick={appendSearchId}>
+          <FaSearch className={`${id=='search'?'text-white':'text-[#a7a7a7]'} text-[#A7A7A7] text-[25px] `} />
+          <p className={`${id=='search'?'text-white':'text-[#a7a7a7]'} text-[#A7A7A7] text-[17px] `}>Search</p>
         </div>
 
       </div>
