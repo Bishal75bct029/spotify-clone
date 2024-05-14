@@ -9,7 +9,7 @@ const SearchResult: React.FC = () => {
     const dispatch = useDispatch();
     const searchData = useSelector((store: Store) => store.searchResult);
     const playMusic = async(url:string)=>{
-        const music = await axios.get('http://saavn.dev/api/songs',
+        const music = await axios.get('https://saavn.dev/api/songs',
             {
                 params:{
                     link:url
@@ -20,7 +20,7 @@ const SearchResult: React.FC = () => {
         dispatch({type:OPEN_PLAYER,payload:music.data.data[0].downloadUrl[2].url})
     }
     const toshow = searchData.artists.length || searchData.artists.length || searchData.tracks.length ||searchData.playlists.length
-    console.log(searchData.artists.length,'rakesh')
+    console.log(searchData,'rakesh')
     return (
         <div className='min-h-[calc(100vh-140px)]'>
         {!!toshow &&
