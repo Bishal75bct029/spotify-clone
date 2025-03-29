@@ -22,4 +22,6 @@ frontend/dist-ssr/
 *.ntvs*
 *.njsproj
 *.sln
+
+dist
 *.sw?

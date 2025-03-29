@@ -1,4 +1,3 @@
-import React from 'react';
 import SideNav from '../components/SideNav';
 import Body from '../components/Body';
 

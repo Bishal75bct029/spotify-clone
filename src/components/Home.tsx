@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '../interfaces/Store';
 import 'react-multi-carousel/lib/styles.css';
 import Albums from './Albums';
+
+console.log('hello');
 import {
   FETCH_BHAJAN_SONGS,
   FETCH_ENGLISH_SONGS,
@@ -19,6 +21,8 @@ import { BASE_API } from '../constants/constant';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+
+  console.log('namaste');
 
   const playlists = useSelector((store: Store) => store.featuredPlaylist.featuredPlaylists);
   const newReleases = useSelector((store: Store) => store.featuredPlaylist.newReleases);

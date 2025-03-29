@@ -4,13 +4,16 @@ import { Store } from '../interfaces/Store';
 import { OPEN_PLAYER } from '../redux/actionTypes';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { BASE_API } from '../constants/constant';
 
 const SearchResult: React.FC = () => {
   const dispatch = useDispatch();
-  const searchData = useSelector((store: Store) => store.searchResult);
+  const searchData = useSelector((store: Store) => store.searchResult) ?? [];
+
+  console.log(searchData, 'here is data');
 
   const playMusic = async (url: string) => {
-    const music = await axios.get('BASE_API/songs', {
+    const music = await axios.get(`${BASE_API}/songs`, {
       params: {
         link: url,
       },
@@ -19,7 +22,10 @@ const SearchResult: React.FC = () => {
   };
 
   const toshow =
-    searchData.artists.length || searchData.artists.length || searchData.tracks.length || searchData.playlists.length;
+    searchData.artists?.length ||
+    searchData.artists?.length ||
+    searchData.tracks?.length ||
+    searchData.playlists?.length;
 
   return (
     <div className="min-h-[calc(100vh-140px)]">

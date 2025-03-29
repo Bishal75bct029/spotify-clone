@@ -7,21 +7,22 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Body: React.FC = () => {
-  const searchResult = useSelector((store: Store) => store.searchResult);
+  const searchResult = useSelector((store: Store) => store.searchResult) || [];
+
   const { id } = useParams();
   const [isData, SetIsData] = useState(
-    searchResult.artists.length > 0 ||
-      searchResult.albums.length > 0 ||
-      searchResult.tracks > 0 ||
-      searchResult.playlists.length > 0,
+    searchResult?.artists?.length > 0 ||
+      searchResult?.albums?.length > 0 ||
+      searchResult?.tracks > 0 ||
+      searchResult?.playlists?.length > 0,
   );
 
   useEffect(() => {
     SetIsData(
-      searchResult.artists.length > 0 ||
-        searchResult.albums.length > 0 ||
-        searchResult.tracks > 0 ||
-        searchResult.playlists.length > 0,
+      searchResult?.artists?.length > 0 ||
+        searchResult?.albums?.length > 0 ||
+        searchResult?.tracks > 0 ||
+        searchResult?.playlists?.length > 0,
     );
   }, [searchResult]);
 
